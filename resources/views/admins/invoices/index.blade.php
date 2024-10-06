@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <button id="addInvoiceBtn" class="btn btn-primary mb-3">إضافة فاتورة</button>
+                    <a href="{{route('dashboard.invoices.add_invoice')}}" id="addInvoiceBtn" class="btn btn-primary mb-3">إضافة فاتورة</a>
                     <table id="invoicesTable" class="table table-bordered dt-responsive nowrap w-100 text-center">
                         <thead>
                         <tr>

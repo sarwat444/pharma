@@ -58,6 +58,14 @@ Route::group(['prefix' => 'admins/dashboard', 'middleware' => 'auth:admin', 'as'
     Route::put('invoices/{id}', [InnvoiceController::class, 'update'])->name('invoices.update');
 
 
+    Route::get('invoices/add_invoice', [InnvoiceController::class, 'add_invoice'])->name('invoices.add_invoice');
+
+    Route::get('/medicines/search', [InnvoiceController::class, 'search'])->name('medicines.search');
+
+    Route::post('/dashboard/medicines/update-quantity', [InnvoiceController::class, 'updateQuantity'])->name('medicines.updatequinity');
+
+
+
 });
 
 

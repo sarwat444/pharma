@@ -104,4 +104,10 @@ class MedcineController extends Controller
         // Return the medicines as JSON or in the format you need
         return response()->json($medicines);
     }
+    public function destroy ($id)
+    {
+        $medcine =  Medicine::find($id) ;
+        $medcine->delete() ;
+        return redirect()->back()->with('success' , 'تم الحذف') ;
+    }
 }
