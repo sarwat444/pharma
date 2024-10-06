@@ -20,6 +20,7 @@
                 </div>
                 <form id="medicineForm">
                     <div class="modal-body">
+                        <input type="hidden" id="medicine_id">
                         <!-- Form Fields -->
                         <div class="form-group">
                             <label for="name">اسم الدواء</label>
