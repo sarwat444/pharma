@@ -1,0 +1,23 @@
+tbody p{
+    font-size: 14px;
+}
+.output_sidebar .btn-primary
+{
+    color: #fff;
+    background-color: #005a85;
+    border-color: #393228;
+    font-size: 11px;
+}
+.output_sidebar .btn-primary.active
+{
+    background-color: #a88143;
+    border-color: #a88143;
+}
+.nav-tabs-custom .nav-item .nav-link.active
+{
+    color: #005a85;
+}
+.nav-tabs-custom .nav-item .nav-link::after
+{
+    background: #005a85;
+}

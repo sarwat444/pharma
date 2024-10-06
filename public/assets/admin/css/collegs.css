@@ -1,0 +1,9 @@
+.college_name
+{
+    color: #005a85;
+    font-weight: 500;
+    font-size:14px
+}
+.college_name:hover{
+    color: #038bcd ; 
+}

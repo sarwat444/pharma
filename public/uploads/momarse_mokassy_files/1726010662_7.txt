@@ -1,0 +1,12 @@
+trans('messages.updated')
+trans('messages.created')
+trans('messages.deleted')
+trans('messages.email_existes')
+trans('messages.not_email_existes')
+trans('messages.email_send')
+trans('messages.Something_Went_Wrong')
+
+
+
+
+
