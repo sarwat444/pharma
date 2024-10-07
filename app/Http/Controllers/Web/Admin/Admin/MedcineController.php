@@ -112,4 +112,17 @@ class MedcineController extends Controller
         $medcine->delete() ;
         return redirect()->back()->with('success' , 'تم الحذف') ;
     }
+    public function statistics()
+    {
+        // Count total number of medicines
+        $medicine_count = Medicine::count();
+
+        // Calculate total price
+        $total = Medicine::all()->sum(function ($medicine) {
+            return $medicine->strip_number * $medicine->strip_price;
+        });
+
+        // Return view with data
+        return view('admins.statistics.index', compact('medicine_count', 'total'));
+    }
 }

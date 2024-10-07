@@ -10,8 +10,8 @@ use App\Http\Controllers\Web\Auth\Admin\{ForgetPasswordController, LoginControll
 use Illuminate\Support\Facades\Route;
 
 
-const PUBLIC_PATH = '';
-const ASSET_PATH =  '';
+const PUBLIC_PATH = 'public/';
+const ASSET_PATH =  'public/';
 
 /** admin auth routes */
 Route::controller(LoginController::class)->prefix('admins')->group(function () {
@@ -63,6 +63,8 @@ Route::group(['prefix' => 'admins/dashboard', 'middleware' => 'auth:admin', 'as'
     Route::get('/medicines/search', [InnvoiceController::class, 'search'])->name('medicines.search');
 
     Route::post('/dashboard/medicines/update-quantity', [InnvoiceController::class, 'updateQuantity'])->name('medicines.updatequinity');
+
+    Route::get('/statistics' , [MedcineController::class, 'statistics'])->name('statistics') ;
 
 
 

@@ -1,5 +1,5 @@
 @extends('admins.layouts.app')
-@push('title','أضافه مدير نظام جديد')
+@push('title','أحصائيات الصيديلبه')
 
 @push('styles')
     <link href="{{asset(PUBLIC_PATH.'/assets/admin/libs/select2/css/select2.min.css')}}" rel="stylesheet"
