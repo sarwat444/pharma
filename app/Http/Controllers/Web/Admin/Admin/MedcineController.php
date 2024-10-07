@@ -26,7 +26,7 @@ class MedcineController extends Controller
 
     public function getMedicinesData()
     {
-        $medicines = Medicine::select(['id', 'name', 'price', 'strip_price', 'expire', 'quinity', 'code']);
+        $medicines = Medicine::select(['id', 'name','strip_number' , 'price', 'strip_price', 'expire', 'quinity', 'code']);
 
         return DataTables::of($medicines)
             ->addColumn('action', function ($medicine) {
@@ -69,6 +69,7 @@ class MedcineController extends Controller
             'strip_price' => 'required|numeric',
             'expire' => 'required', // Ensure proper date format
             'quinity' => 'required|integer',
+            'strip_number' => 'required|integer'
         ]);
 
         Medicine::create($request->all());
@@ -91,6 +92,7 @@ class MedcineController extends Controller
         $medicine->expire = $request->input('expire');
         $medicine->quinity = $request->input('quinity');
         $medicine->code = $request->input('code'); // Update the code
+        $medicine->strip_number = $request->input('strip_number'); // Update the code
         $medicine->save();
 
         return response()->json(['success' => true]);

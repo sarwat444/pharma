@@ -27,9 +27,15 @@
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="price">سعر الدواء</label>
+                            <label for="price">سعر العلبة</label>
                             <input type="number" class="form-control" id="price" name="price" required step="0.01" min="0">
                         </div>
+
+                        <div class="form-group">
+                            <label for="price">  عدد الشرايط</label>
+                            <input type="number" class="form-control" id="strip_number" name="strip_number" required step="0.01" min="0">
+                        </div>
+
                         <div class="form-group">
                             <label for="strip_price">سعر الشريط</label>
                             <input type="number" class="form-control" id="strip_price" name="strip_price" required step="0.01" min="0">
@@ -75,6 +81,7 @@
                             <th>الاسم</th>
                             <th>السعر</th>
                             <th>سعر الشريط</th>
+                            <th>عدد الشرايط</th>
                             <th>تاريخ الانتهاء</th>
                             <th>الكمية</th>
                             <th>الرمز</th>
@@ -115,6 +122,7 @@
                     { data: 'name', name: 'name' },
                     { data: 'price', name: 'price' },
                     { data: 'strip_price', name: 'strip_price' },
+                    { data: 'strip_number', name: 'strip_number' },
                     { data: 'expire', name: 'expire' },
                     { data: 'quinity', name: 'quinity' },
                     { data: 'code', name: 'code' },
@@ -132,9 +140,9 @@
                 var total = 0;
                 table.rows().every(function(rowIdx, tableLoop, rowLoop) {
                     var data = this.data();
-                    var quantity = parseFloat(data.quinity) || 0;
-                    var price = parseFloat(data.price.replace(/[^0-9.-]+/g, "")) || 0;
-                    total += quantity * price;
+                    var strip_number = parseFloat(data.strip_number) || 0;
+                    var strip_price = parseFloat(data.strip_price.replace(/[^0-9.-]+/g, "")) || 0;
+                    total += strip_number * strip_price;
                 });
                 $('#totalAmount').text(total.toFixed(2));
             }
@@ -185,6 +193,7 @@
                         $('#expire').val(data.expire);
                         $('#quinity').val(data.quinity);
                         $('#code').val(data.code);
+                        $('#strip_number').val(data.strip_number);
                         $('#medicineModal').modal('show');
                     },
                     error: function(xhr) {
