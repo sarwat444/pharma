@@ -10,8 +10,8 @@ use App\Http\Controllers\Web\Auth\Admin\{ForgetPasswordController, LoginControll
 use Illuminate\Support\Facades\Route;
 
 
-const PUBLIC_PATH = 'public/';
-const ASSET_PATH =  'public/';
+const PUBLIC_PATH = '';
+const ASSET_PATH =  '';
 
 /** admin auth routes */
 Route::controller(LoginController::class)->prefix('admins')->group(function () {

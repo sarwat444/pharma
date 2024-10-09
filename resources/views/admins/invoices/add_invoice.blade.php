@@ -5,6 +5,13 @@
 @push('styles')
     <link href="{{ asset(PUBLIC_PATH.'/assets/admin/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset(PUBLIC_PATH.'/assets/admin/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <style>
+        html , body , input
+        {
+            text-align: right;
+            direction: rtl;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -14,42 +21,64 @@
                 <div class="card-body">
                     <form id="invoiceForm">
                         <div class="modal-body">
-                            <input type="hidden" id="invoice_id" name="invoice_id">
+                            <div class="card-title mb-4" >بيانات الفاتورة</div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="hidden" id="invoice_id" name="invoice_id">
+                                    <!-- رقم الفاتورة -->
+                                    <div class="form-group mb-3">
+                                        <label for="invoice_number">رقم الفاتورة</label>
+                                        <input type="text" class="form-control" id="invoice_number" name="invoice_number" required>
+                                    </div>
 
-                            <!-- رقم الفاتورة -->
-                            <div class="form-group">
-                                <label for="invoice_number">رقم الفاتورة</label>
-                                <input type="text" class="form-control" id="invoice_number" name="invoice_number" required>
+                                    <!-- تاريخ الفاتورة -->
+                                    <div class="form-group  mb-3">
+                                        <label for="invoice_date">تاريخ الفاتورة</label>
+                                        <input type="date" class="form-control" id="invoice_date" name="invoice_date" required>
+                                    </div>
+                                    <!-- حقل البحث -->
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group  mb-3">
+                                        <label for="medicineSearch">ابحث عن الدواء</label>
+                                        <input type="text" id="medicineSearch" class="form-control" placeholder="ادخل اسم الدواء أو الكود">
+                                    </div>
+                                    <!-- جدول نتائج البحث -->
+                                    <div class="form-group">
+                                        <table id="searchResults" class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>اسم الدواء</th>
+                                                <th>السعر</th>
+                                                <th>الكمية المتاحة</th> <!-- Updated to show available quantity -->
+                                                <th>الإجراء</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <!-- Results will be dynamically added here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                            <!-- تاريخ الفاتورة -->
-                            <div class="form-group">
-                                <label for="invoice_date">تاريخ الفاتورة</label>
-                                <input type="date" class="form-control" id="invoice_date" name="invoice_date" required>
-                            </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
 
-                            <!-- حقل البحث -->
-                            <div class="form-group">
-                                <label for="medicineSearch">ابحث عن الدواء</label>
-                                <input type="text" id="medicineSearch" class="form-control" placeholder="ادخل اسم الدواء أو الكود">
-                            </div>
 
-                            <!-- جدول نتائج البحث -->
-                            <div class="form-group">
-                                <table id="searchResults" class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>اسم الدواء</th>
-                                        <th>السعر</th>
-                                        <th>الكمية المتاحة</th> <!-- Updated to show available quantity -->
-                                        <th>الإجراء</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <!-- Results will be dynamically added here -->
-                                    </tbody>
-                                </table>
-                            </div>
+
+
+
+
+
 
                             <!-- جدول الأدوية المضافة -->
                             <div id="medicinesList">

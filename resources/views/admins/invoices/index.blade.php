@@ -24,7 +24,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- سيتم ملء الصفوف بواسطة DataTables -->
                         </tbody>
                     </table>
                 </div>
