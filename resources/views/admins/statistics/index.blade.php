@@ -14,14 +14,18 @@
                     <div class="card-title mb-3">أحصائيات الصيدلية</div>
                     <table class="table table-responsive">
                         <tbody>
-                        <tr>
-                            <td>أجمالى عدد الأصناف</td>
-                            <td> {{$medicine_count}}  أصناف</td>
-                        </tr>
-                        <tr>
-                            <td> الرصيد الحالى </td>
-                            <td>  {{$total}}جم .</td>
-                        </tr>
+                            <tr>
+                                <td>  أجمالى عدد أصناف  الأدوية</td>
+                                <td> {{$medicine_count}}  أصناف</td>
+                            </tr>
+                            <tr>
+                                <td>  الرصيد الحالى للادوية  </td>
+                                <td>  {{$total}}جم .</td>
+                            </tr>
+                            <tr>
+                                <td>  الرصيد الحالى للمستلزمات  </td>
+                                <td>  {{$cosmatics_total}}جم .</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

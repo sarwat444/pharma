@@ -9,8 +9,7 @@
                     <div class="bg-primary bg-soft">
                         <div class="row">
                             <div class="col-12 text-center">
-                                <img style="height: 95px" class="mb-3 mt-4" src="{{asset(PUBLIC_PATH.'assets/site/images/main-logo.png')}}" >
-                                <h3 class="text-center font-size-17 mt-4">  نظام إتقان - أدارة نظام الجوده</h3>
+                                <h3 class="text-center font-size-17 mt-4">صيدلية د . تيسير على شتيوي </h3>
                                 <p class="text-primary text-center">تسجيل دخول - مدير النظام</p>
                             </div>
                         </div>

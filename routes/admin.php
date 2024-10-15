@@ -3,15 +3,16 @@
 use App\Http\Controllers\Web\Admin\{
     Admin\MedcineController,
     Admin\DashboardController,
-    Admin\InnvoiceController
+    Admin\InnvoiceController ,
+    Admin\CosmaticsController
 
 };
 use App\Http\Controllers\Web\Auth\Admin\{ForgetPasswordController, LoginController, NewPasswordController};
 use Illuminate\Support\Facades\Route;
 
 
-const PUBLIC_PATH = '';
-const ASSET_PATH =  '';
+const PUBLIC_PATH = 'public/';
+const ASSET_PATH =  'public/';
 
 /** admin auth routes */
 Route::controller(LoginController::class)->prefix('admins')->group(function () {
@@ -66,6 +67,16 @@ Route::group(['prefix' => 'admins/dashboard', 'middleware' => 'auth:admin', 'as'
 
     Route::get('/statistics' , [MedcineController::class, 'statistics'])->name('statistics') ;
 
+
+    Route::resource('cosmatics', CosmaticsController::class);
+
+    Route::get('cosmatics/data', [CosmaticsController::class, 'getCosmaticasData'])->name('cosmatics.data');
+
+    Route::post('/cosmatics/store', [CosmaticsController::class, 'store'])->name('cosmatics.store');
+
+    Route::put('/cosmatics/update/{medcine}', [CosmaticsController::class, 'update'])->name('cosmatics.update');
+
+    Route::get('/cosmatics/edit/{id}', [CosmaticsController::class, 'edit'])->name('cosmatics.edit');
 
 
 });

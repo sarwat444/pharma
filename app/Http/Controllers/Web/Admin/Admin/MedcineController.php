@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Admin\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cosmatics;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Web\Admin\Colleges\{StoreCollegeRequest, UpdateCollegeRequest};
 use App\Models\Medicine;
@@ -122,7 +123,13 @@ class MedcineController extends Controller
             return $medicine->strip_number * $medicine->strip_price;
         });
 
+        $cosmatics_total = Cosmatics::all()->sum(function ($medicine) {
+            return $medicine->price * $medicine->quinity;
+        });
+
+
+
         // Return view with data
-        return view('admins.statistics.index', compact('medicine_count', 'total'));
+        return view('admins.statistics.index', compact('medicine_count', 'total' ,'cosmatics_total'));
     }
 }

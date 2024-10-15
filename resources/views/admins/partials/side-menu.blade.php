@@ -9,6 +9,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('dashboard.cosmatics.index') }}">
+                        <i class='bx bxs-capsule'></i>
+                        <span key="t-maps">  المستلزمات  </span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('dashboard.invoices.index') }}">
                         <i class='bx bx-grid'></i>
                         <span key="t-maps">  الفواتير </span>
