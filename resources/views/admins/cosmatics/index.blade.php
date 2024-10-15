@@ -34,6 +34,10 @@
                             <label for="strip_price">السعر</label>
                             <input type="number" class="form-control" id="price" name="price" required step="0.01" min="0">
                         </div>
+                        <div class="form-group">
+                            <label for="scanner_input">مدخل الماسح الضوئي (RQ Scanner)</label>
+                            <input type="text" class="form-control" id="code" name="code" placeholder="Scan barcode here">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
@@ -63,6 +67,7 @@
                                 <th>الاسم</th>
                                 <th>السعر</th>
                                 <th>الكمية</th>
+                                <th>الكود</th>
                                 <th>الإجراءات</th>
                             </tr>
                         </thead>
@@ -99,6 +104,7 @@
                     { data: 'name', name: 'name' },
                     { data: 'price', name: 'price' },
                     { data: 'quinity', name: 'quinity' },
+                    { data: 'code', name: 'code' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ],
                 responsive: true,
@@ -163,6 +169,7 @@
                         $('#name').val(data.name);
                         $('#price').val(data.price);
                         $('#quinity').val(data.quinity);
+                        $('#code').val(data.code);
                         $('#medicineModal').modal('show');
                     },
                     error: function(xhr) {

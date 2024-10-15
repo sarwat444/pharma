@@ -20,7 +20,7 @@ class CosmaticsController extends Controller
     }
     public function show()
     {
-        $medicines = Cosmatics::select(['id', 'name' , 'price','quinity']);
+        $medicines = Cosmatics::select(['id', 'name' , 'price','quinity' , 'code']);
 
         return DataTables::of($medicines)
             ->addColumn('action', function ($medicine) {
@@ -36,6 +36,9 @@ class CosmaticsController extends Controller
             ->editColumn('price', function ($medicine) {
                 return number_format($medicine->price, 2) . ' ج.م';
             })
+            ->editColumn('code', function ($medicine) {
+                return $medicine->code; // Display the code in the table
+            })
             ->rawColumns(['action', 'name']) // Allow HTML in these columns
             ->make(true);
     }
@@ -47,7 +50,7 @@ class CosmaticsController extends Controller
         $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
-            'quinity' => 'required|integer'
+            'quinity' => 'required|integer' ,
         ]);
 
         Cosmatics::create($request->all());
@@ -67,6 +70,7 @@ class CosmaticsController extends Controller
         $medicine->name = $request->input('name');
         $medicine->price = $request->input('price');
         $medicine->quinity = $request->input('quinity');
+        $medicine->code = $request->input('code'); // Update the code
         $medicine->save();
         return response()->json(['success' => true]);
     }
