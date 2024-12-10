@@ -21,6 +21,13 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('dashboard.medicine-needs') }}">
+                        <i class='bx bx-chart'></i>
+                        <span key="t-maps"> الطلبيات </span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('dashboard.statistics') }}">
                         <i class='bx bx-chart'></i>
                         <span key="t-maps">  الأحصائيات العامة </span>

@@ -4,7 +4,8 @@ use App\Http\Controllers\Web\Admin\{
     Admin\MedcineController,
     Admin\DashboardController,
     Admin\InnvoiceController ,
-    Admin\CosmaticsController
+    Admin\CosmaticsController ,
+    Admin\MedicineNeedController
 
 };
 use App\Http\Controllers\Web\Auth\Admin\{ForgetPasswordController, LoginController, NewPasswordController};
@@ -77,6 +78,13 @@ Route::group(['prefix' => 'admins/dashboard', 'middleware' => 'auth:admin', 'as'
     Route::put('/cosmatics/update/{medcine}', [CosmaticsController::class, 'update'])->name('cosmatics.update');
 
     Route::get('/cosmatics/edit/{id}', [CosmaticsController::class, 'edit'])->name('cosmatics.edit');
+
+
+    Route::get('/medicine-needs', [MedicineNeedController::class, 'index'])->name('medicine-needs');
+    Route::get('/medicine-needs/data', [MedicineNeedController::class, 'getMedicineNeeds'])->name('getMedciveNeeds');
+    Route::post('/medicine-needs/store', [MedicineNeedController::class, 'store'])->name('store-needs');
+    Route::put('/medicine-needs/update/{medicineNeed}', [MedicineNeedController::class, 'update'])->name('updated-needs');
+    Route::delete('/medicine-needs/delete/{medicineNeed}', [MedicineNeedController::class, 'destroy'])->name('dashboard.delete-needs');
 
 
 });
