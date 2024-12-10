@@ -80,9 +80,9 @@
                         }
                     });
 
-                    // Initialize DataTable
+                    // Initialize DataTable with named route
                     let table = $('#medicineNeedsTable').DataTable({
-                        ajax: '/admins/dashboard/medicine-needs/data',
+                        ajax: '{{ route("dashboard.medicine-needs.data") }}',
                         columns: [
                             { data: 'id' },
                             { data: 'name' },
@@ -113,7 +113,7 @@
                     // Edit record
                     $(document).on('click', '.edit', function () {
                         let id = $(this).data('id');
-                        $.get(`/admins/dashboard/medicine-needs/data`, function (response) {
+                        $.get('{{ route("dashboard.medicine-needs.data") }}', function (response) {
                             let medicineNeed = response.data.find(item => item.id == id);
                             if (medicineNeed) {
                                 $('#medicineNeedId').val(medicineNeed.id);
@@ -134,8 +134,8 @@
                         e.preventDefault();
                         let id = $('#medicineNeedId').val();
                         let url = id
-                            ? `/admins/dashboard/medicine-needs/update/${id}`
-                            : '/admins/dashboard/medicine-needs/store';
+                            ? '{{ route("dashboard.updated-needs", ":id") }}'.replace(':id', id)
+                            : '{{ route("dashboard.store-needs") }}';
                         let method = id ? 'PUT' : 'POST';
 
                         $.ajax({
@@ -158,7 +158,7 @@
                         let id = $(this).data('id');
                         if (confirm('هل أنت متأكد أنك تريد حذف هذا السجل؟')) {
                             $.ajax({
-                                url: `/admins/dashboard/medicine-needs/delete/${id}`,
+                                url: '{{ route("dashboard.delete-needs", ":id") }}'.replace(':id', id),
                                 method: 'DELETE',
                                 success: function (response) {
                                     if (response.success) {
@@ -176,5 +176,6 @@
                     });
                 });
             </script>
+
 
     @endpush
