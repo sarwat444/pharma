@@ -48,6 +48,10 @@
                             <label for="quinity">الكمية</label>
                             <input type="number" class="form-control" id="quinity" name="quinity" required>
                         </div>
+                        <div class="form-group mt-3 mb-2">
+                            <label for="fridge">تلاجه ؟؟ </label>
+                            <input type="checkbox"  id="fridge" name="fridge">
+                        </div>
                         <div class="form-group">
                             <label for="scanner_input">مدخل الماسح الضوئي (RQ Scanner)</label>
                             <input type="text" class="form-control" id="code" name="code" placeholder="Scan barcode here">
@@ -79,6 +83,7 @@
                         <tr>
                             <th>المعرف</th>
                             <th>الاسم</th>
+                            <th>تلاجه</th>
                             <th>السعر</th>
                             <th>سعر الشريط</th>
                             <th>عدد الشرايط</th>
@@ -120,6 +125,7 @@
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'name', name: 'name' },
+                    { data: 'fridge', name: 'fridge' },
                     { data: 'price', name: 'price' },
                     { data: 'strip_price', name: 'strip_price' },
                     { data: 'strip_number', name: 'strip_number' },
@@ -180,27 +186,31 @@
             });
 
             // Edit button click handler
-            $(document).on('click', '.editMedicineBtn', function() {
-                var medicineId = $(this).data('id');
-                $.ajax({
-                    url: '{{ route("dashboard.medcine.edit", ":id") }}'.replace(':id', medicineId),
-                    method: 'GET',
-                    success: function(data) {
-                        $('#medicine_id').val(data.id);
-                        $('#name').val(data.name);
-                        $('#price').val(data.price);
-                        $('#strip_price').val(data.strip_price);
-                        $('#expire').val(data.expire);
-                        $('#quinity').val(data.quinity);
-                        $('#code').val(data.code);
-                        $('#strip_number').val(data.strip_number);
-                        $('#medicineModal').modal('show');
-                    },
-                    error: function(xhr) {
-                        alert('حدث خطأ أثناء جلب البيانات');
-                    }
+                $(document).on('click', '.editMedicineBtn', function() {
+                    var medicineId = $(this).data('id');
+                    $.ajax({
+                        url: '{{ route("dashboard.medcine.edit", ":id") }}'.replace(':id', medicineId),
+                        method: 'GET',
+                        success: function(data) {
+                            $('#medicine_id').val(data.id);
+                            $('#name').val(data.name);
+                            $('#price').val(data.price);
+                            $('#strip_price').val(data.strip_price);
+                            $('#expire').val(data.expire);
+                            $('#quinity').val(data.quinity);
+                            $('#code').val(data.code);
+                            $('#strip_number').val(data.strip_number);
+                            
+                            // Set the checked state of the fridge checkbox based on the value
+                            $('#fridge').prop('checked', data.fridge == 1);
+                            
+                            $('#medicineModal').modal('show');
+                        },
+                        error: function(xhr) {
+                            alert('حدث خطأ أثناء جلب البيانات');
+                        }
+                    });
                 });
             });
-        });
     </script>
 @endpush

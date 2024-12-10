@@ -26,57 +26,73 @@ class MedcineController extends Controller
     }
 
     public function getMedicinesData()
-    {
-        $medicines = Medicine::select(['id', 'name','strip_number' , 'price', 'strip_price', 'expire', 'quinity', 'code']);
+{
+    $medicines = Medicine::select(['id', 'name','strip_number' , 'price', 'strip_price', 'expire', 'quinity', 'code', 'fridge']);
 
-        return DataTables::of($medicines)
-            ->addColumn('action', function ($medicine) {
-                return '<button class="btn btn-sm btn-primary editMedicineBtn" data-id="' . $medicine->id . '">تعديل</button>
-                <form method="POST" action="' . route('dashboard.medcine.destroy', $medicine->id) . '" style="display:inline;">
-                    ' . csrf_field() . method_field('DELETE') . '
-                    <button type="submit" class="btn btn-sm btn-danger">حذف</button>
-                </form>';
-            })
-            ->editColumn('name', function ($medicine) {
-                return '<strong>' . $medicine->name . '</strong>';
-            })
-            ->editColumn('price', function ($medicine) {
-                return number_format($medicine->price, 2) . ' ج.م';
-            })
-            ->editColumn('strip_price', function ($medicine) {
-                return number_format($medicine->strip_price, 2) . ' ج.م';
-            })
-            ->editColumn('expire', function ($medicine) {
-                try {
-                    return \Carbon\Carbon::createFromFormat('d/m/Y', $medicine->expire)->format('d-m-Y');
-                } catch (\Exception $e) {
-                    return $medicine->expire;
-                }
-            })
-            ->editColumn('code', function ($medicine) {
-                return $medicine->code; // Display the code in the table
-            })
-            ->rawColumns(['action', 'name']) // Allow HTML in these columns
-            ->make(true);
+    return DataTables::of($medicines)
+        ->addColumn('action', function ($medicine) {
+            return '<button class="btn btn-sm btn-primary editMedicineBtn" data-id="' . $medicine->id . '">تعديل</button>
+            <form method="POST" action="' . route('dashboard.medcine.destroy', $medicine->id) . '" style="display:inline;">
+                ' . csrf_field() . method_field('DELETE') . '
+                <button type="submit" class="btn btn-sm btn-danger">حذف</button>
+            </form>';
+        })
+        ->editColumn('name', function ($medicine) {
+            return '<strong>' . $medicine->name . '</strong>';
+        })
+        ->editColumn('price', function ($medicine) {
+            return number_format($medicine->price, 2) . ' ج.م';
+        })
+        ->editColumn('strip_price', function ($medicine) {
+            return number_format($medicine->strip_price, 2) . ' ج.م';
+        })
+        ->editColumn('fridge', function ($medicine) {
+            return $medicine->fridge == 1 
+                ? '<span class="badge bg-success">نعم</span>' 
+                : '<span class="badge bg-danger">  لا </span>';
+        })
+        ->editColumn('expire', function ($medicine) {
+            try {
+                return \Carbon\Carbon::createFromFormat('d/m/Y', $medicine->expire)->format('d-m-Y');
+            } catch (\Exception $e) {
+                return $medicine->expire;
+            }
+        })
+        ->editColumn('code', function ($medicine) {
+            return $medicine->code; // Display the code in the table
+        })
+        ->rawColumns(['action', 'name', 'fridge']) // Allow HTML in these columns
+        ->make(true);
+}
+
+
+public function store(Request $request)
+{
+    $data = $request->all() ; 
+    // Check if the fridge checkbox is checked and set the value accordingly
+    if (!empty($request->fridge) && $request->fridge === 'on') {
+        $data['fridge'] = 1; // Set fridge to 1 if checked
+    } else {
+        $data['fridge']  = 0; // Set fridge to 0 if not checked
     }
 
+    // Validate the incoming request
+    $request->validate([
+        'name' => 'required|string',
+        'price' => 'required',
+        'strip_price' => 'required',
+        'expire' => 'required', // Ensure proper date format
+        'quinity' => 'required',
+        'strip_number' => 'required',
+        'fridge' => 'sometimes' // Validate as boolean if fridge is present
+    ]);
 
-    public function store(Request $request)
-    {
+    // Create the medicine record
+    Medicine::create($data);
 
-        $request->validate([
-            'name' => 'required|string',
-            'price' => 'required|numeric',
-            'strip_price' => 'required|numeric',
-            'expire' => 'required', // Ensure proper date format
-            'quinity' => 'required|integer',
-            'strip_number' => 'required|integer'
-        ]);
+    return response()->json(['success' => 'Medicine added successfully']);
+}
 
-        Medicine::create($request->all());
-
-        return response()->json(['success' => 'Medicine added successfully']);
-    }
 
     public function edit($id)
     {
@@ -86,18 +102,31 @@ class MedcineController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Initialize fridge variable
+        $fridge = 0;
+    
+        // Check if the fridge checkbox is checked
+        if ($request->fridge == 'on') {
+            $fridge = 1; // Assign 1 to fridge if checked
+        }
+    
+        // Find the medicine record
         $medicine = Medicine::findOrFail($id);
+    
+        // Update the medicine attributes
         $medicine->name = $request->input('name');
         $medicine->price = $request->input('price');
         $medicine->strip_price = $request->input('strip_price');
         $medicine->expire = $request->input('expire');
         $medicine->quinity = $request->input('quinity');
-        $medicine->code = $request->input('code'); // Update the code
-        $medicine->strip_number = $request->input('strip_number'); // Update the code
+        $medicine->code = $request->input('code');
+        $medicine->strip_number = $request->input('strip_number');
+        $medicine->fridge = $fridge; // Update fridge value
         $medicine->save();
-
+    
         return response()->json(['success' => true]);
     }
+    
 
     public function list()
     {
