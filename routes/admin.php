@@ -80,6 +80,7 @@ Route::group(['prefix' => 'admins/dashboard', 'middleware' => 'auth:admin', 'as'
     Route::get('/cosmatics/edit/{id}', [CosmaticsController::class, 'edit'])->name('cosmatics.edit');
 
 
+    Route::get('/medicine-needs/index', [MedicineNeedController::class, 'index'])->name('medicine-needs');
     Route::get('/medicine-needs/data', [MedicineNeedController::class, 'getMedicineNeeds'])->name('medicine-needs.data');
     Route::post('/medicine-needs/store', [MedicineNeedController::class, 'store'])->name('store-needs');
     Route::put('/medicine-needs/update/{medicineNeed}', [MedicineNeedController::class, 'update'])->name('updated-needs');
