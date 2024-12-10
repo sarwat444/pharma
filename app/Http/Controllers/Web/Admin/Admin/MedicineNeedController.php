@@ -24,7 +24,6 @@ class MedicineNeedController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'quinity' => 'required|integer',
-            'status' => 'required|boolean',
         ]);
 
         MedicineNeed::create($validated);
@@ -36,7 +35,6 @@ class MedicineNeedController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'quinity' => 'required|integer',
-            'status' => 'required|boolean',
         ]);
 
         $medicineNeed->update($validated);
